@@ -1,6 +1,8 @@
 package application.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "memberships")
@@ -9,6 +11,14 @@ public class Membership {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "profile_memberships",
+            joinColumns = {@JoinColumn(name = "membership_id")},
+            inverseJoinColumns = {@JoinColumn(name = "profile_id")}
+    )
+    private Set<Profile> profiles = new HashSet<>();
 
     public Membership(String name){
         this.name = name;
@@ -24,5 +34,9 @@ public class Membership {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Profile> getProfiles() {
+        return profiles;
     }
 }

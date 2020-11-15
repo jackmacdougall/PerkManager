@@ -1,24 +1,23 @@
 package application.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "userprofiles")
-public class UserProfile {
+@Table(name = "profiles")
+public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
 
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
-    private List<Membership> memberships = null;
+    @ManyToMany(mappedBy = "profiles", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<Membership> memberships = new HashSet<>();
 
-    public UserProfile(String name) {
+    public Profile(String name) {
         this.name = name;
-        this.memberships = new ArrayList<Membership>();
     }
 
     public Integer getId() {
@@ -33,7 +32,11 @@ public class UserProfile {
         this.name = name;
     }
 
+    public Set<Membership> getMemberships(){
+        return memberships;
+    }
     public void addMembership(Membership membership){
-        this.memberships.add(membership);
+        memberships.add(membership);
+        membership.getProfiles().add(this);
     }
 }

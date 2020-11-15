@@ -16,16 +16,16 @@ public class Perk {
     @ManyToOne
     private Product product;
 
-    private Integer upvotes;
-    private Integer downvotes;
+    private Integer likes;
+    private Integer dislikes;
     private Date expiryDate;
 
     public Perk(Membership membership, Product product, Date expiryDate){
         this.membership = membership;
         this.product = product;
         this.expiryDate = expiryDate;
-        this.upvotes = 0;
-        this.downvotes = 0;
+        this.likes = 0;
+        this.dislikes = 0;
     }
 
     public Integer getId(){
@@ -44,23 +44,23 @@ public class Perk {
         return this.expiryDate;
     }
 
-    public void setExpiryDate(){
+    public void setExpiryDate(Date expiryDate){
         this.expiryDate = expiryDate;
     }
 
     public Integer getUpvotes(){
-        return this.upvotes;
+        return this.likes;
     }
 
     public Integer getDownvotes(){
-        return this.downvotes;
+        return this.dislikes;
     }
 
-    public void upvote(){
-        this.upvotes++;
+    public void like(){
+        this.likes++;
     }
 
-    public void downvote(){
-        this.downvotes++;
+    public void dislike(){
+        this.dislikes++;
     }
 }
