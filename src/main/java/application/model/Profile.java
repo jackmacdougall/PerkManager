@@ -11,12 +11,17 @@ public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(unique=true)
     private String username;
+
     private String password;
     private String role;
 
     @ManyToMany(mappedBy = "profiles", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Membership> memberships = new HashSet<>();
+
+    public Profile(){}
 
     public Profile(String username, String password, String role) {
         this.username = username;

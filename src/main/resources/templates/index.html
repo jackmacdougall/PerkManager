@@ -1,11 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
-    <title>Perk Manager</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Login</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="static/js/login.js"></script>
 </head>
 <body>
-    <h1>Perk Manager</h1>
+<h1>Login</h1>
+    <fieldset>
+        <legend>Enter username and password</legend>
+        <div>
+            <label for="username-input">Username</label>
+            <input id="username-input" type="text" name="username"/>
+        </div>
+        <div>
+            <label for="password-input">Password</label>
+            <input id="password-input" type="password" name="password"/>
+        </div>
+        <div>
+            <button id="login-btn">Login</button>
+        </div>
+    </fieldset>
+</form>
+<div>
+    <button id="sign-up-btn">Sign Up</button>
+</div>
+<div id="create-profile-panel" style="visibility: hidden">
+    <h3>New Profile</h3>
+    <div>
+        <label for="new-username-input">Username</label>
+        <input id="new-username-input" type="text" />
+    </div>
+    <div>
+        <label for="new-password-input">Password</label>
+        <input id="new-password-input" type="password" />
+    </div>
+    <div>
+        <label for="new-password-input">Confirm Password</label>
+        <input id="confirm-password-input" type="password" />
+    </div>
+    <div>
+        <button id="create-profile-btn">Create Profile</button>
+    </div>
+</div>
 </body>
 </html>
