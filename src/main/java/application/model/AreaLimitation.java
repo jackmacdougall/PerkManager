@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class AreaLimitation extends Limitation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String name;
     private String geographicalArea;
 

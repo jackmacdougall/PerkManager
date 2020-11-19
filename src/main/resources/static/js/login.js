@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    if(document.cookie)
     document.getElementById("sign-up-btn").addEventListener("click", function(){
         document.getElementById("sign-up-btn").disabled = true;
         document.getElementsByTagName('fieldset')[0].disabled = true;
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             dataType: 'json',
             data: {"username" : username, "password" : password},
             success: function(response) {
+                document.cookie = response;
                 window.location = '/main';
             },
             error: function(e) {

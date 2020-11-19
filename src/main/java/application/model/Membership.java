@@ -9,22 +9,22 @@ import java.util.Set;
 public class Membership {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
-            name = "profile_memberships",
+            name = "user_memberships",
             joinColumns = {@JoinColumn(name = "membership_id")},
-            inverseJoinColumns = {@JoinColumn(name = "profile_id")}
+            inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
-    private Set<Profile> profiles = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
     public Membership(String name){
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return this.id;
     }
 
@@ -36,7 +36,7 @@ public class Membership {
         this.name = name;
     }
 
-    public Set<Profile> getProfiles() {
-        return profiles;
+    public Set<User> getUsers() {
+        return this.users;
     }
 }

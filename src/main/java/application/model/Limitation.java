@@ -7,7 +7,7 @@ import javax.persistence.*;
 public abstract class Limitation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String name;
     private boolean forAllow;
 
@@ -16,7 +16,7 @@ public abstract class Limitation {
         this.forAllow = forAllow;
     }
 
-    public Integer getId(){
+    public Long getId(){
         return this.id;
     }
 

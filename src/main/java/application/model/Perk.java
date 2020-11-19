@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "perk")
+@Table(name = "perks")
 public class Perk {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne
     private Membership membership;
@@ -28,7 +28,7 @@ public class Perk {
         this.dislikes = 0;
     }
 
-    public Integer getId(){
+    public Long getId(){
         return this.id;
     }
 

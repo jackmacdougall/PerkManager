@@ -1,35 +1,27 @@
 package application.model;
 
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "profiles")
-public class Profile {
-
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "user_id")
+    private Long id;
 
-    @Column(unique=true)
     private String username;
-
     private String password;
     private String role;
 
-    @ManyToMany(mappedBy = "profiles", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Membership> memberships = new HashSet<>();
 
-    public Profile(){}
-
-    public Profile(String username, String password, String role) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return this.id;
     }
 
@@ -48,8 +40,10 @@ public class Profile {
     public Set<Membership> getMemberships(){
         return memberships;
     }
+
     public void addMembership(Membership membership){
         memberships.add(membership);
-        membership.getProfiles().add(this);
+        membership.getUsers().add(this);
     }
+
 }

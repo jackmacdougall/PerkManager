@@ -1,9 +1,8 @@
 package application.repository;
 
 import application.model.Membership;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@RepositoryRestResource(collectionResourceRel = "memberships", path = "memberships")
-public interface MembershipRepository extends CrudRepository<Membership, Integer> {
+
+public interface MembershipRepository extends JpaRepository<Membership, Long> {
 }
