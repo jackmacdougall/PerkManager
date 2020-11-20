@@ -1,6 +1,7 @@
 package application.model;
 
 import javax.persistence.*;
+import java.lang.reflect.Member;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +11,8 @@ public class Membership {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique=true)
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
@@ -19,6 +22,8 @@ public class Membership {
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
     private Set<User> users = new HashSet<>();
+
+    public Membership(){}
 
     public Membership(String name){
         this.name = name;
