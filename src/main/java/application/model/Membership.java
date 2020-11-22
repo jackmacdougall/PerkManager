@@ -9,13 +9,13 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
-@Table(name = "memberships")
+@Table(name = "memberships", uniqueConstraints={@UniqueConstraint(columnNames={"name"})})
 public class Membership {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique=true)
+    @Column(name = "name")
     private String name;
 
     @ManyToMany(cascade = CascadeType.ALL)

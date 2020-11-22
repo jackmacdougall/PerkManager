@@ -28,7 +28,7 @@ public class MembershipController {
 
     @GetMapping(value = "/name")
     public @ResponseBody
-    Membership getMembershipByName(@RequestBody String name) { return service.findByName(name); }
+    Membership getMembershipByName(@RequestParam("name") String name) { return service.findByName(name); }
 
     @GetMapping(value = "/user")
     public @ResponseBody

@@ -42,16 +42,30 @@ public class UserController {
         return service.findById(id).get();
     }
 
-    @PostMapping(value = "/membership")
+    @PostMapping(value = "/membership/new")
     public @ResponseBody
-    void addMembershipToUser(@RequestBody String json) {
-        System.out.println("success");
+    void addNewMembershipToUser(@RequestBody String json) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonNode node = mapper.readTree(json);
             User user = mapper.convertValue(node.get("userObj"), User.class);
             String membershipName = mapper.convertValue(node.get("membershipName"), String.class);
             Membership membership = new Membership(membershipName);
+            user.addMembership(membership);
+            service.save(user);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @PostMapping(value = "/membership")
+    public @ResponseBody
+    void addMembershipToUser(@RequestBody String json) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            JsonNode node = mapper.readTree(json);
+            User user = mapper.convertValue(node.get("userObj"), User.class);
+            Membership membership = mapper.convertValue(node.get("membershipObj"), Membership.class);
             user.addMembership(membership);
             service.save(user);
         } catch (JsonProcessingException e) {
