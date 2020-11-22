@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Member;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/api/membership")
@@ -28,6 +29,13 @@ public class MembershipController {
     @GetMapping(value = "/name")
     public @ResponseBody
     Membership getMembershipByName(@RequestBody String name) { return service.findByName(name); }
+
+    @GetMapping(value = "/user")
+    public @ResponseBody
+    List<Membership> getMembershipsNotWithUser(@RequestParam("username") String username) {
+        List<Membership> memberships = service.findByNotUsername(username);
+        return service.findByNotUsername(username);
+    }
 
     @PostMapping(value = "/new")
     public @ResponseBody

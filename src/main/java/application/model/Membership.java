@@ -1,10 +1,13 @@
 package application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.lang.reflect.Member;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "memberships")
 public class Membership {
@@ -15,7 +18,7 @@ public class Membership {
     @Column(unique=true)
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_memberships",
             joinColumns = {@JoinColumn(name = "membership_id")},

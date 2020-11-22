@@ -1,5 +1,9 @@
 package application.model;
 
+import application.web.CustomAuthorityDeserializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.*;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -21,7 +26,8 @@ public class User implements UserDetails {
     private String role;
     public boolean enabled = true;
 
-    @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private Set<Membership> memberships = new HashSet<>();
 
     public Long getId() {
@@ -52,6 +58,7 @@ public class User implements UserDetails {
         return true;
     }
 
+    @JsonDeserialize(using = CustomAuthorityDeserializer.class)
     @Override
     public List<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -67,13 +74,13 @@ public class User implements UserDetails {
 
     public void setRole(String role) { this.role = role; }
 
+    @JsonIgnore
     public Set<Membership> getMemberships(){
         return memberships;
     }
 
     public void addMembership(Membership membership){
-        memberships.add(membership);
+        this.getMemberships().add(membership);
         membership.getUsers().add(this);
     }
-
 }
