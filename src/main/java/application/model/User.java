@@ -30,6 +30,14 @@ public class User implements UserDetails {
     @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private Set<Membership> memberships = new HashSet<>();
 
+    public User() {}
+
+    public User(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
     public Long getId() {
         return this.id;
     }

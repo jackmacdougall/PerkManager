@@ -5,7 +5,7 @@
     <title>Login</title>
 </head>
 <body>
-<div>
+<div class="container">
     <form th:action="@{/doLogin}" method="post" class="form-signin">
         <h2 class="form-heading">Log in</h2>
         <div class="form-group ">
@@ -14,10 +14,14 @@
                    autofocus="true"/>
             <input name="password" type="password" class="form-control" placeholder="Password"/>
             <span></span>
-
             <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
         </div>
     </form>
+    <a href="/register">Register New User</a>
 </div>
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
