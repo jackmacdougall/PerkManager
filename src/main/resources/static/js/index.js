@@ -22,11 +22,13 @@ document.addEventListener('DOMContentLoaded', function() {
             $.ajax({
                 type: "GET",
                 url: "/api/user/username?username=" + username,
+                async: false,
                 success: function (result) {
                     user = result;
                     $.ajax({
                         type: "GET",
                         url: "/api/membership/name?name=" + membershipName,
+                        async: false,
                         success: function (result) {
                             membership = result;
                             let postData = {
@@ -53,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById("new-membership-btn").addEventListener('click', function() {
 	    var user;
 	    var membershipName = document.getElementById("new-membership-txt").value;
+	    if (membershipName !== "") {
 	    $.ajax({
             type: "GET",
             url: "/api/user/username?username=" + username,
@@ -75,5 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         });
+        }
 	});
 });
