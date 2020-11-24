@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface MembershipService {
-    public void save(Membership membership);
+    public void addMembership(Membership membership);
     public List<Membership> findAllMemberships();
     public Membership findByName(String name);
     public List<Membership> findByNotUsername(String username);

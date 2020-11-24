@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     let username = document.getElementById("username").innerHTML;
 	document.getElementById("add-membership-btn").addEventListener('click', function() {
-	    document.getElementById("membership-forms").style.visibility = "visible";
+	    if (document.getElementById("membership-forms").style.visibility == "hidden") document.getElementById("membership-forms").style.visibility = "visible";
+	    else document.getElementById("membership-forms").style.visibility = "hidden";
 	    $.ajax({
 	        type: "GET",
 	        url: "/api/membership/user?username=" + username,
@@ -79,5 +80,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         }
+	});
+	document.getElementById("add-product-btn").addEventListener('click', function() {
+    	if (document.getElementById("product-form").style.visibility == "hidden") document.getElementById("product-form").style.visibility = "visible";
+    	else document.getElementById("product-form").style.visibility = "hidden";
+	    document.getElementById("new-product-btn").addEventListener('click', function() {
+	        if (document.getElementById("new-product-txt").value != ""){
+	        let postData = { productName: document.getElementById("new-product-txt").value };
+	            $.ajax({
+	                type: "POST",
+	                url: "/api/product/new",
+	                contentType : "application/json",
+	                data: JSON.stringify(postData),
+                    cache: false,
+                    async: false,
+	                success: function (result) {
+	                }
+	            });
+	        }
+	    });
 	});
 });

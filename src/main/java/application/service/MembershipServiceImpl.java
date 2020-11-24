@@ -19,7 +19,7 @@ public class MembershipServiceImpl implements  MembershipService{
     private UserRepository userRepository;
 
     @Override
-    public void save(Membership membership) {
+    public void addMembership(Membership membership) {
         repository.save(membership);
     }
 

@@ -40,7 +40,7 @@ public class MembershipController {
     public @ResponseBody
     Membership addMembership(@RequestBody String name) {
         Membership membership = new Membership(name.substring(0, name.length() - 1));
-        service.save(membership);
+        service.addMembership(membership);
         return service.findByName(membership.getName());
     }
 }

@@ -3,11 +3,13 @@ package application.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "products")
+@Table(name = "products", uniqueConstraints={@UniqueConstraint(columnNames={"name"})})
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name")
     private String name;
 
     public Product(String name){

@@ -2,6 +2,8 @@ package application.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "perks")
@@ -16,16 +18,16 @@ public class Perk {
     @ManyToOne
     private Product product;
 
-    private Integer likes;
-    private Integer dislikes;
+    @OneToMany
+    private Set<Limitation> limitations = new HashSet<Limitation>();
+
+    private Integer likes = 0;
+    private Integer dislikes = 0;
     private Date expiryDate;
 
-    public Perk(Membership membership, Product product, Date expiryDate){
+    public Perk(Membership membership, Product product){
         this.membership = membership;
         this.product = product;
-        this.expiryDate = expiryDate;
-        this.likes = 0;
-        this.dislikes = 0;
     }
 
     public Long getId(){
