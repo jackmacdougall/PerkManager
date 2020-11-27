@@ -82,6 +82,10 @@ public class User implements UserDetails {
 
     public void setRole(String role) { this.role = role; }
 
+    public boolean getEnabled() { return this.enabled; }
+
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
+
     @JsonIgnore
     public Set<Membership> getMemberships(){
         return memberships;

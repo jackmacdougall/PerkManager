@@ -1,8 +1,12 @@
 package application.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "limitations")
 public class Limitation {
@@ -13,8 +17,9 @@ public class Limitation {
     private boolean permitted;
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "perk_id")
+    @JsonBackReference
     private Perk perk;
 
     public Limitation() {}
@@ -37,9 +42,11 @@ public class Limitation {
         this.description = description;
     }
 
-    public boolean isPermitted(){
+    public boolean getPermitted(){
         return this.permitted;
     }
+
+    public void setPermitted(boolean permitted) { this.permitted = permitted; }
 
     public String getType() { return this.type; }
 
@@ -48,5 +55,4 @@ public class Limitation {
     public Perk getPerk() { return this.perk; }
 
     public void setPerk(Perk perk) { this.perk = perk; }
-
 }

@@ -22,7 +22,7 @@ public class MembershipController {
 
     @GetMapping(value = "/all")
     public @ResponseBody
-    List<Membership> getMemberships() {
+    List<Membership> getAllMemberships() {
         return service.findAllMemberships();
     }
 

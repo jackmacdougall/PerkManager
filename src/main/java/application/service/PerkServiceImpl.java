@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PerkServiceImpl implements PerkService {
@@ -21,6 +22,9 @@ public class PerkServiceImpl implements PerkService {
 
     @Override
     public void save(Perk perk) { repository.save(perk); }
+
+    @Override
+    public List<Perk> findAllPerks() { return repository.findAll(); }
 
     @Override
     public Perk addPerk(String perkData) {

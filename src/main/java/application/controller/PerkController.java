@@ -8,10 +8,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/perk")
@@ -22,6 +21,12 @@ public class PerkController {
 
     @Autowired
     private LimitationServiceImpl limitService;
+
+    @GetMapping("/all")
+    public @ResponseBody
+    List<Perk> getAllPerks() {
+        return service.findAllPerks();
+    }
 
     @PostMapping("/new")
     public @ResponseBody

@@ -9,8 +9,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Date;
+import java.util.List;
 
 public interface PerkService {
     Perk addPerk(String perkData) throws Exception;
     void save(Perk perk);
+    List<Perk> findAllPerks();
 }

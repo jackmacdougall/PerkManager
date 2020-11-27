@@ -202,6 +202,43 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         });
 	});
+	document.getElementById("view-perks-btn").addEventListener('click', function() {
+        let template = document.getElementById("view-perks-template");
+        setTemplateContainer(template.content.cloneNode(true));
+        $.ajax({
+            type: "GET",
+            url: "/api/perk/all",
+            dataType: "json",
+            success: function (response) {
+                let items = '';
+                for (let i = 0; i < response.length; i++) {
+                    items += '<a href="#" class="perk-list list-group-item list-group-item-action" id="' + response[i].id + '">' + response[i].description + "</button>";
+                }
+                $("#view-perks").html(items);
+                let perkItems = document.getElementsByClassName("perk-list");
+                for (let i = 0; i < perkItems.length; i++) {
+                    perkItems[i].addEventListener("click", function() {
+                        var limitationId = this.id;
+                        $(".perk-list").removeClass("active");
+                        this.classList.add("active");
+                        $.ajax({
+                            type: "GET",
+                            url: "/api/limitation/perk?id=" + this.id,
+                            dataType: "json",
+                            success (response) {
+                                $(".list-group").remove(".nested");
+                                $("#"+limitationId).after('<div class="list-group nested">');
+                                for (let i = 0; i < response.length; i++) {
+                                    $(".nested").append('<a href="#" class="list-group-item">' + response[i].description + "</a>");
+                                }
+                                $(".nested").after("</div>");
+                            }
+                        });
+                    });
+                }
+            }
+        });
+    });
 });
 
 function setTemplateContainer(element) {
