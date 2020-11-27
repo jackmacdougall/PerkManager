@@ -9,10 +9,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/api/product")
@@ -21,16 +20,20 @@ public class ProductController {
     @Autowired
     private ProductServiceImpl service;
 
+    @GetMapping(value = "/all")
+    public @ResponseBody
+    List<Product> getAllProducts() { return service.findAll(); }
+
+    @GetMapping(value = "/name")
+    public @ResponseBody
+    Product getProductByName(@RequestParam("name") String name) {
+        return service.findByName(name);
+    }
+
     @PostMapping(value = "/new")
     public @ResponseBody
     Product addProduct(@RequestBody String name) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            JsonNode node = objectMapper.readTree(name);
-            service.addProduct(new Product(objectMapper.convertValue(node.get("productName"), String.class)));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        service.addProduct(name);
         return service.findByName(name);
     }
 }

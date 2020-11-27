@@ -32,6 +32,10 @@ public class MembershipController {
 
     @GetMapping(value = "/user")
     public @ResponseBody
+    List<Membership> getMembershipWithUser(@RequestParam("username") String username) { return service.findByUsername(username); }
+
+    @GetMapping(value = "/notuser")
+    public @ResponseBody
     List<Membership> getMembershipsNotWithUser(@RequestParam("username") String username) {
         return service.findByNotUsername(username);
     }

@@ -18,16 +18,19 @@ public class Perk {
     @ManyToOne
     private Product product;
 
-    @OneToMany
-    private Set<Limitation> limitations = new HashSet<Limitation>();
+    @OneToMany (mappedBy = "perk", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Limitation> limitations = new HashSet<>();
 
     private Integer likes = 0;
     private Integer dislikes = 0;
     private Date expiryDate;
+    private String description;
 
-    public Perk(Membership membership, Product product){
+    public Perk(Membership membership, Product product, String description, Date expiryDate){
         this.membership = membership;
         this.product = product;
+        this.description = description;
+        this.expiryDate = expiryDate;
     }
 
     public Long getId(){
@@ -50,6 +53,10 @@ public class Perk {
         this.expiryDate = expiryDate;
     }
 
+    public String getDescription() { return this.description; }
+
+    public void setDescription(String description) { this.description = description; }
+
     public Integer getUpvotes(){
         return this.likes;
     }
@@ -65,4 +72,8 @@ public class Perk {
     public void dislike(){
         this.dislikes++;
     }
+
+    public Set<Limitation> getLimitations() { return this.limitations; }
+
+    public void addLimitation(Limitation limitation) { this.limitations.add(limitation); }
 }

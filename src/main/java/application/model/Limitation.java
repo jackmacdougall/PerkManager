@@ -1,35 +1,52 @@
 package application.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "limitations")
-public abstract class Limitation {
+public class Limitation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private boolean forAllow;
+    private String description;
+    private boolean permitted;
+    private String type;
 
-    public Limitation(String name, boolean forAllow){
-        this.name = name;
-        this.forAllow = forAllow;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "perk_id")
+    private Perk perk;
+
+    public Limitation() {}
+
+    public Limitation(String type, String description, boolean permitted){
+        this.type = type;
+        this.description = description;
+        this.permitted = permitted;
     }
 
     public Long getId(){
         return this.id;
     }
 
-    public String getName(){
-        return this.name;
+    public String getDescription(){
+        return this.description;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setDescription(String description){
+        this.description = description;
     }
 
-    public boolean isAllowLimitation(){
-        return this.forAllow;
+    public boolean isPermitted(){
+        return this.permitted;
     }
+
+    public String getType() { return this.type; }
+
+    public void setType(String type) { this.type = type; }
+
+    public Perk getPerk() { return this.perk; }
+
+    public void setPerk(Perk perk) { this.perk = perk; }
 
 }

@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 public interface UserService {
-    public void save(User user);
-    public Optional<User> findById(Long id);
-    public User findByUsername(String username);
+    void save(User user);
+    User findById(Long id) throws Exception;
+    User findByUsername(String username);
+    void addMembershipToUser(String userData);
+    void addNewMembershipToUser(String userData);
 }

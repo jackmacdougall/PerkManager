@@ -12,6 +12,8 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+    public Product() {}
+
     public Product(String name){
         this.name = name;
     }
